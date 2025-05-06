@@ -4,12 +4,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-@SpringBootTest(classes = ForumServiceApplication.class)
-@ActiveProfiles("test")
+@SpringBootTest
+@ActiveProfiles("test") // <- activa el archivo application-test.properties
 class ForumServiceApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
-
+    @Test
+    void contextLoads() {
+    }
 }

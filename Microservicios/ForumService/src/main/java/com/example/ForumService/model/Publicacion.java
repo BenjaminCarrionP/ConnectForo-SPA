@@ -2,6 +2,8 @@ package com.example.ForumService.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,6 +44,7 @@ public class Publicacion {
 
     @ManyToOne
     @JoinColumn(name = "tema_id", nullable = false)
+    @JsonBackReference
     private Tema tema;
 }
 
