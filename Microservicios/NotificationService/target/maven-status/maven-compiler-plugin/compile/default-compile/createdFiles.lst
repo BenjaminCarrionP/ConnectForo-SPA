@@ -1,0 +1,3 @@
+com\example\NotificationService\model\Notificacion.class
+com\example\NotificationService\NotificationServiceApplication.class
+com\example\NotificationService\repository\NotificacionRepository.class
