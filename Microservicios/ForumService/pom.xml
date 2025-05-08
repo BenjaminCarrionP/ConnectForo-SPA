@@ -14,9 +14,9 @@
     </parent>
 
     <groupId>com.example</groupId>
-    <artifactId>AnalyticsService</artifactId>
+    <artifactId>FoumService</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>AnalyticsService</name>
+    <name>FoumService</name>
     <description>Microservicio para análisis de datos</description>
 
     <properties>
@@ -50,6 +50,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>3.0.2</version>
         </dependency>
     </dependencies>
 
