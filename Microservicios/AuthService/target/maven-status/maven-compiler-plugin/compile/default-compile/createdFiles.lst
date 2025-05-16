@@ -1,0 +1,10 @@
+com\example\AuthService\AuthServiceApplication.class
+com\example\AuthService\model\AuthResponse.class
+com\example\AuthService\model\RegisterRequest.class
+com\example\AuthService\repository\UserRepository.class
+com\example\AuthService\model\User.class
+com\example\AuthService\services\AuthService.class
+com\example\AuthService\config\SecurityConfig.class
+com\example\AuthService\services\AuthServiceImpl.class
+com\example\AuthService\model\LoginRequest.class
+com\example\AuthService\controller\AuthController.class
