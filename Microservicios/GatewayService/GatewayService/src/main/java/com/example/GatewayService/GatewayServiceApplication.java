@@ -1,4 +1,4 @@
-package com.connectforo.gatewayservice;
+package com.example.GatewayService;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

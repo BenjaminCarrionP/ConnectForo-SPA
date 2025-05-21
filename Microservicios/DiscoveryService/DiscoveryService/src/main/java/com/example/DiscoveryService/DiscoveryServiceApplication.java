@@ -1,4 +1,4 @@
-package com.connectforo.discoveryservice;
+package com.example.DiscoveryService;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
