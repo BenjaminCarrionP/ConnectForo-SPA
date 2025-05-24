@@ -7,7 +7,7 @@ import com.example.AuthService.service.ServicioAutenticacion;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AutenticacionControlador {
 
     private final ServicioAutenticacion servicio;
