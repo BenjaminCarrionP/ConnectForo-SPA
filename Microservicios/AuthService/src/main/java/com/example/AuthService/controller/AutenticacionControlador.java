@@ -4,6 +4,7 @@ import com.example.AuthService.model.entity.Usuarios;
 import com.example.AuthService.model.dto.RegistroRequest;
 import com.example.AuthService.model.dto.LoginRequest;
 import com.example.AuthService.service.ServicioAutenticacion;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,12 +18,14 @@ public class AutenticacionControlador {
     }
 
     @PostMapping("/registro")
-    public Usuarios registro(@RequestBody RegistroRequest req) {
-        return servicio.registrar(req);
+    public ResponseEntity<?> registro(@RequestBody RegistroRequest req) {
+        Usuarios registrado = servicio.registrar(req);
+        return ResponseEntity.ok(registrado);
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest req) {
-        return servicio.login(req);
+    public ResponseEntity<String> login(@RequestBody LoginRequest req) {
+        String token = servicio.login(req);
+        return ResponseEntity.ok(token);
     }
 }

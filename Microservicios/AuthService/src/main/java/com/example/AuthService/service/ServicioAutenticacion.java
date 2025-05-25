@@ -8,6 +8,8 @@ import com.example.AuthService.security.JwtUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDateTime;
+
 @Service
 public class ServicioAutenticacion {
 
@@ -27,17 +29,29 @@ public class ServicioAutenticacion {
         if (repo.findByCorreo(req.getCorreo()).isPresent()) {
             throw new IllegalArgumentException("Correo ya existe");
         }
-        String claveEnc = encoder.encode(req.getClave());
-        Usuarios u = new Usuarios(req.getCorreo(), claveEnc, req.getNombre());
-        return repo.save(u);
+
+        Usuarios usuario = Usuarios.builder()
+                .correo(req.getCorreo())
+                .clave(encoder.encode(req.getClave()))
+                .rol(req.getRol())
+                .nombre(req.getNombre())
+                .biografia(req.getBiografia())
+                .fotoPerfil(req.getFotoPerfil())
+                .activo(true)
+                .fechaRegistro(LocalDateTime.now())
+                .build();
+
+        return repo.save(usuario);
     }
 
     public String login(LoginRequest req) {
         Usuarios u = repo.findByCorreo(req.getCorreo())
             .orElseThrow(() -> new IllegalArgumentException("Correo no registrado"));
+
         if (!encoder.matches(req.getClave(), u.getClave())) {
             throw new IllegalArgumentException("Clave incorrecta");
         }
+
         return jwtUtil.generarToken(u.getId(), u.getCorreo(), u.getRol());
     }
 }
