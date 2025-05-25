@@ -28,7 +28,7 @@ public class ServicioAutenticacion {
             throw new IllegalArgumentException("Correo ya existe");
         }
         String claveEnc = encoder.encode(req.getClave());
-        Usuarios u = new Usuarios(req.getCorreo(), claveEnc);
+        Usuarios u = new Usuarios(req.getCorreo(), claveEnc, req.getNombre());
         return repo.save(u);
     }
 

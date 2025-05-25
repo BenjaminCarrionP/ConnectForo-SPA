@@ -1,10 +1,7 @@
 package com.example.AuthService.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "usuarios")
@@ -13,14 +10,41 @@ public class Usuarios {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, unique = true)
     private String correo;
+
+    @Column(nullable = false)
     private String clave;
 
-    public Usuarios() {}
+    @Column(nullable = false)
+    private String nombre;
 
-    public Usuarios(String correo, String clave) {
+    @Column(name = "fecha_registro", nullable = false)
+    private LocalDateTime fechaRegistro;
+
+    @Column(nullable = false)
+    private boolean activo;
+
+    @Column(nullable = false)
+    private String rol;
+
+    private String fotoPerfil;
+    private String biografia;
+
+    public Usuarios() {
+        this.fechaRegistro = LocalDateTime.now();
+        this.activo = true;
+        this.rol = "USER";
+    }
+
+    public Usuarios(String correo, String clave, String nombre) {
         this.correo = correo;
-        this.clave  = clave;
+        this.clave = clave;
+        this.nombre = nombre;
+        this.fechaRegistro = LocalDateTime.now();
+        this.activo = true;
+        this.rol = "USER";
     }
 
     public Long getId() { return id; }
@@ -31,4 +55,22 @@ public class Usuarios {
 
     public String getClave() { return clave; }
     public void setClave(String clave) { this.clave = clave; }
+
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public LocalDateTime getFechaRegistro() { return fechaRegistro; }
+    public void setFechaRegistro(LocalDateTime fechaRegistro) { this.fechaRegistro = fechaRegistro; }
+
+    public boolean isActivo() { return activo; }
+    public void setActivo(boolean activo) { this.activo = activo; }
+
+    public String getRol() { return rol; }
+    public void setRol(String rol) { this.rol = rol; }
+
+    public String getFotoPerfil() { return fotoPerfil; }
+    public void setFotoPerfil(String fotoPerfil) { this.fotoPerfil = fotoPerfil; }
+
+    public String getBiografia() { return biografia; }
+    public void setBiografia(String biografia) { this.biografia = biografia; }
 }
