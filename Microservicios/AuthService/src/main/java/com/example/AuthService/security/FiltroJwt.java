@@ -54,13 +54,14 @@ public class FiltroJwt extends OncePerRequestFilter {
             return;
         }
 
-        var claims = jwtUtil.obtenerDatos(token);
-        String correo = claims.getSubject();
+        var claims = jwtUtil.getClaims(token);
+        String correo = claims.get("correo", String.class);
+        String rol = claims.get("rol", String.class); // roles existentes son: "USER", "MOD", "ADMIN"
 
         var auth = new UsernamePasswordAuthenticationToken(
             correo,
             null,
-            List.of(new SimpleGrantedAuthority("ROLE_USER"))
+            List.of(new SimpleGrantedAuthority("ROLE_" + rol)) 
         );
 
         SecurityContextHolder.getContext().setAuthentication(auth);
