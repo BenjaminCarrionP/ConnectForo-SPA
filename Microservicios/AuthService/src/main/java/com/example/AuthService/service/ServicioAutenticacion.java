@@ -38,6 +38,6 @@ public class ServicioAutenticacion {
         if (!encoder.matches(req.getClave(), u.getClave())) {
             throw new IllegalArgumentException("Clave incorrecta");
         }
-        return jwtUtil.generarToken(u.getId(), u.getCorreo());
+        return jwtUtil.generarToken(u.getId(), u.getCorreo(), u.getRol());
     }
 }
