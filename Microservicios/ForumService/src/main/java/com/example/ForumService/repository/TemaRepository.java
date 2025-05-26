@@ -7,5 +7,4 @@ import com.example.ForumService.model.Tema;
 
 @Repository
 public interface TemaRepository extends JpaRepository<Tema, Long> {
-    // List<Tema> findByTituloContainingIgnoreCase(String titulo);
 }
