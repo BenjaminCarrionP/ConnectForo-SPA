@@ -4,3 +4,5 @@ start cmd /k "cd Microservicios\ForumService && mvn clean install && mvn spring-
 start cmd /k "cd Microservicios\CommentService && mvn clean install && mvn spring-boot:run"
 start cmd /k "cd Microservicios\NotificationService && mvn clean install && mvn spring-boot:run"
 start cmd /k "cd Microservicios\AnalyticsService && mvn clean install && mvn spring-boot:run"
+start cmd /k "cd Microservicios\AuthService && mvn clean install && mvn spring-boot:run" 
+start cmd /k "cd Microservicios\UserService && mvn clean install && mvn spring-boot:run"
