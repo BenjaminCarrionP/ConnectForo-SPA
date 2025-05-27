@@ -3,6 +3,7 @@ package com.example.MediaService.model;
 import java.util.Date;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
 @Data
+@Table(name = "media")
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
