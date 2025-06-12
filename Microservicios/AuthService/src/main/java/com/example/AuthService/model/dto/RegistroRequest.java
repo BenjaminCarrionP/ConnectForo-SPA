@@ -8,7 +8,8 @@ import lombok.Setter;
 public class RegistroRequest {
     private String correo;
     private String clave;
-    private String rol;
+    private String username;
+    private String rol = "USER";
     private String nombre;
     private String biografia;
     private String fotoPerfil;

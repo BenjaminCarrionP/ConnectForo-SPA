@@ -1,6 +1,7 @@
 package com.example.CategoryService.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.CategoryService.model.Categoria;
@@ -43,5 +44,10 @@ public class CategoriaController {
     @GetMapping("/foro/{idForo}")
     public List<Categoria> listarPorForo(@PathVariable Long idForo) {
         return service.obtenerPorIdForo(idForo);
+    }
+    @FeignClient(name = "categoria-service", url = "http://localhost:8086")
+    public interface CategoriaClient {
+        @GetMapping("/categorias/{id}")
+        Categoria obtenerCategoria(@PathVariable("id") Long id);
     }
 }

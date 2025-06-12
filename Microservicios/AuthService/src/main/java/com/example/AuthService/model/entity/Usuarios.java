@@ -20,6 +20,7 @@ public class Usuarios {
 
     private String correo;
     private String clave;
+    private String username;
     private String rol;
     private String nombre;
     private String biografia;

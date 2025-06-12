@@ -33,6 +33,7 @@ public class ServicioAutenticacion {
         Usuarios usuario = Usuarios.builder()
                 .correo(req.getCorreo())
                 .clave(encoder.encode(req.getClave()))
+                .username(req.getUsername())
                 .rol(req.getRol())
                 .nombre(req.getNombre())
                 .biografia(req.getBiografia())
@@ -52,6 +53,6 @@ public class ServicioAutenticacion {
             throw new IllegalArgumentException("Clave incorrecta");
         }
 
-        return jwtUtil.generarToken(u.getId(), u.getCorreo(), u.getRol());
+        return jwtUtil.generarToken(u.getId(), u.getCorreo(),u.getUsername(), u.getRol());
     }
 }

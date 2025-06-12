@@ -1,28 +1,20 @@
 package com.example.CategoryService.model;
 
-import jakarta.persistence.Column;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@NoArgsConstructor
+@Entity
 public class Categoria {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCategoria;
+    private Long id;
 
     private String nombre;
-
-    @Column(name = "id_foro")
-    private Long idForo; // FK al foro
 }
