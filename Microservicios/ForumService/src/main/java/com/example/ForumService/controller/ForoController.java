@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.ForumService.model.Categoria;
 import com.example.ForumService.model.ForoDTO;
 import com.example.ForumService.service.ForoService;
 
@@ -26,13 +27,17 @@ public class ForoController {
 
     @GetMapping("/")
     public List<ForoDTO> obtenerForos() {
-        return foroService.obtenerForosConCategoria();
+        return foroService.obtenerForosConCategorias();
     }
 
-    @FeignClient(name = "categoria-service", url = "http://localhost:8086") // URL del microservicio de Categoría
+    @FeignClient(name = "category-service", url = "http://localhost:8081")
     public interface CategoriaClient {
 
+        @GetMapping("/categorias")
+        List<Categoria> obtenerTodasLasCategorias(); // Devuelve todas las categorías
+
         @GetMapping("/categorias/{id}")
-        CategoriaClient obtenerCategoria(@PathVariable("id") Long id);
+        Categoria obtenerCategoria(@PathVariable("id") Long id);
     }
+
 }

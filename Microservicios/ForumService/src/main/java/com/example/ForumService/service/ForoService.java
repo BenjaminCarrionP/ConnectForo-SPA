@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ForumService.controller.ForoController.CategoriaClient;
+import com.example.ForumService.model.Categoria;
 import com.example.ForumService.model.ExceptionsAll;
 import com.example.ForumService.model.Foro;
 import com.example.ForumService.model.ForoDTO;
@@ -17,38 +18,60 @@ public class ForoService {
     private final ForoRepository foroRepository;
     private final CategoriaClient categoriaClient;
 
+
     @Autowired
+
     public ForoService(ForoRepository foroRepository, CategoriaClient categoriaClient) {
         this.foroRepository = foroRepository;
         this.categoriaClient = categoriaClient;
     }
+     public List<ForoDTO> obtenerForosConCategorias() {
+        List<Foro> foros = foroRepository.findAll();
+        List<ForoDTO> foroDTOs = new ArrayList<>();
 
-    public ForoDTO obtenerForoConCategoria(Long foroId) {
-        // Recuperar el foro
-        Foro foro = foroRepository.findById(foroId).orElseThrow(() -> new RuntimeException("Foro no encontrado"));
+        // Obtener todas las categorías desde CategoryService
+        List<Categoria> categorias = categoriaClient.obtenerTodasLasCategorias();
 
-        // Hacer la llamada al microservicio de Categoria para obtener detalles de la categoría
-        CategoriaClient categoria = categoriaClient.obtenerCategoria(foro.getCategoriaId());
+        // Mapear los foros con las categorías
+        for (Foro foro : foros) {
+            Categoria categoria = categorias.stream()
+                    .filter(c -> c.getId().equals(foro.getCategoriaId()))
+                    .findFirst()
+                    .orElse(null);
 
-        // Puedes agregar la categoría a un DTO o devolver el foro con la información de la categoría
-        ForoDTO foroDTO = new ForoDTO();
-        foroDTO.setId(foro.getId());
-        foroDTO.setTitulo(foro.getTitulo());
-        foroDTO.setDescripcion(foro.getDescripcion());
-        foroDTO.setCategoriaId(categoria.getId());
-        foroDTO.setCategoriaNombre(categoria.getNombre());  // Si lo necesitas
+            if (categoria != null) {
+                ForoDTO foroDTO = new ForoDTO();
+                foroDTO.setId(foro.getId());
+                foroDTO.setTitulo(foro.getTitulo());
+                foroDTO.setDescripcion(foro.getDescripcion());
+                foroDTO.setCategoriaId(categoria.getId());
+                foroDTO.setCategoriaNombre(categoria.getNombre());
 
-        return foroDTO;
+                foroDTOs.add(foroDTO);
+            }
+        }
+
+        return foroDTOs;
     }
     public List<ForoDTO> obtenerForosPorCategoria(Long categoriaId) {
+        // Recuperamos todos los foros con el ID de categoría proporcionado
         List<Foro> foros = foroRepository.findByCategoriaId(categoriaId);
         List<ForoDTO> foroDTOs = new ArrayList<>();
 
+        if (foros.isEmpty()) {
+            throw new RuntimeException("No se encontraron foros para la categoría con ID: " + categoriaId);
+        }
+
+        // Obtener las categorías solo una vez para evitar hacer múltiples solicitudes
+        Categoria categoria = categoriaClient.obtenerCategoria(categoriaId);
+
+        // Validar que la categoría existe
+        if (categoria == null) {
+            throw new RuntimeException("Categoría no encontrada para el ID: " + categoriaId);
+        }
+
+        // Mapear los foros a ForoDTO
         for (Foro foro : foros) {
-            CategoriaClient categoria = categoriaClient.obtenerCategoria(foro.getCategoriaId());
-            if (categoria == null) {
-                throw new ExceptionsAll("Categoría no encontrada para el ID: " + foro.getCategoriaId());
-            }
             ForoDTO foroDTO = new ForoDTO();
             foroDTO.setId(foro.getId());
             foroDTO.setTitulo(foro.getTitulo());
