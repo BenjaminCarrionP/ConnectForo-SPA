@@ -56,6 +56,7 @@ public class FiltroJwt extends OncePerRequestFilter {
 
         var claims = jwtUtil.getClaims(token);
         String correo = claims.get("correo", String.class);
+        String username = claims.get("username", String.class);
         String rol = claims.get("rol", String.class); // roles existentes son: "USER", "MOD", "ADMIN"
 
         var auth = new UsernamePasswordAuthenticationToken(

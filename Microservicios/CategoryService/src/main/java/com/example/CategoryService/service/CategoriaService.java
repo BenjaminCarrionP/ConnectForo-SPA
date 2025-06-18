@@ -30,7 +30,6 @@ public class CategoriaService {
     public Categoria actualizarCategoria(Long id, Categoria nuevaCategoria) {
         return repository.findById(id).map(cat -> {
             cat.setNombre(nuevaCategoria.getNombre());
-            cat.setIdForo(nuevaCategoria.getIdForo());
             return repository.save(cat);
         }).orElse(null);
     }

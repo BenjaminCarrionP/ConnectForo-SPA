@@ -7,8 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "usuarios")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -20,12 +19,13 @@ public class Usuarios {
 
     private String correo;
     private String clave;
+    private String username;
     private String rol;
     private String nombre;
     private String biografia;
     private String fotoPerfil;
     private Boolean activo;
-
+    
     @Column(name = "fecha_registro")
     private LocalDateTime fechaRegistro;
 }
